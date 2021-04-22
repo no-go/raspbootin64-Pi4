@@ -182,7 +182,7 @@ int main(int argc, char *argv[]) {
 
     while(keep_running) {
       // Open serial device
-      if ((serial_fd = open(argv[1], O_RDWR | O_NOCTTY | O_NONBLOCK)) == -1) {
+      if ((serial_fd = open(argv[1], O_RDWR | O_NOCTTY)) == -1) {
         // udev takes a while to change ownership
         // so sometimes one gets EACCESS
         if (errno == ENOENT || errno == ENODEV || errno == EACCES) {
