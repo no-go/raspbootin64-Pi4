@@ -1,63 +1,51 @@
-raspbootin
-==========
+# raspbootin64 Pi4
 
-Simple boot-over-serial bootloader for the Raspberry Pi
+Simple boot-over-serial bootloader for the Raspberry Pi4 for aarch64 kernels.
 
-The Raspbootin repository contains 2 components: Raspbootin and Raspbootcom.
+This repository contains 2 components: Raspbootin64 and Raspbootcom.
 
-Raspbootin:
------------
+## Raspbootin64
+
+Based on: [raspbootin64](https://github.com/bztsrc/raspi3-tutorial/tree/master/14_raspbootin64)
 
 Raspbootin is the actual bootloader that you install on the SD Card for your
-Raspberry Pi. Copy the raspbootin/kernel.img in place of the kernel.img on
+Raspberry Pi. Copy the raspbootin/kernel8.img in place of the kernel8.img on
 the SD Card and you are ready for use.
 
-Raspbootcom:
-------------
+**Compiling**
+
+- Get the right cross compiler toolchain (e.g. building on x86_64) from [here](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-a/downloads)
+- Take a look into the `raspbootin/Makefile` and modify `TOOLCHAIN` !
+
+Switch to `raspbootin64/` and type `make`.
+
+## Raspbootcom
+
+Based on: [raspbootin](https://github.com/mrvn/raspbootin)
 
 Raspbootcom is a simple boot server and terminal program for the other
 side of the serial connection. You need to run this on another
-computer, the one the serial port of your Raspberry Pi is conneted to.
+computer, the one the serial port of your Raspberry Pi4 is conneted to.
 On start Raspbootcom is in terminal mode. Any input on stdin is passed
-to the Raspberry Pi and any reply from the Raspberry Pi is printed to
+to the Raspberry Pi4 and any reply from the Raspberry Pi4 is printed to
 stdout. The Raspbootin bootloader will send 3 breaks (0x03) over the
 serial connection when it wants to boot a kernel and Raspbootcom then
 switches into kernel sending mode, reads the kernel from disk and
-sends it to the Raspberry Pi. After that it goes back into terminal
-mode so you can see the output from the Raspberry Pi and interact with
+sends it to the Raspberry Pi4. After that it goes back into terminal
+mode so you can see the output from the Raspberry Pi4 and interact with
 it.
 
 The kernel is read fresh every time it is send so you do not need to
-restart Raspbootcom every time the kernel image changes. My Raspberry
-Pi gets its power over the serial connection so unplugging and
-repluging the USB serial converter is how it reboots. Raspbootcom also
+restart Raspbootcom every time the kernel image changes. Raspbootcom also
 survives unplugging and replugging of an USB serial converter and will
 automatically reopen the device when you replug it. 
 
-Compiling:
-----------
+**Compiling**
 
-The build system is verry simple and the only thing configurable is
-the location of the arm cross compiler. By default the
-raspbootin/Makefile assumes you build your cross-compiler with PREFIX
-= /usr/local/cross and TARGET = arm-none-eabi. If that is not the case
-then you can override by setting PREFIX or ARMGNU in your environment:
+Switch to `raspbootcom/` and type `make`.
 
-export PREFIX=/usr/local/cross
-export ARMGNU=${PREFIX}/bin/arm-none-eabi
+## Usage
 
-Where ARMGNU is the prefix for the compiler to use, ${ARMGNU}-gcc and
-friends must exist.
-
-Other than that simply type
-
-   make
-
-and it will build both Raspbootin and Raspbootcom.
-
-Usage:
-------
-
-- Copy the raspbootin/kernel.img to the SD Card for the Raspberry Pi.
-- Run raspbootcom/raspbootcom /dev/ttyUSB0 /where/you/have/your/kernel.img.
-- Turn on the Raspberry Pi.
+- Copy the `sdcard/kernel8.img` to the SD Card for the Raspberry Pi4.
+- Run `raspbootcom/raspbootcom /dev/ttyUSB0 /where/you/have/your/own/kernel8.img`
+- Turn on the Raspberry Pi4.
