@@ -1,6 +1,5 @@
 *~
 *.d
 *.o
-*.elf
-*.img
+raspbootin64/kernel8.elf
 raspbootcom/raspbootcom

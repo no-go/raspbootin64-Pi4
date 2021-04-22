@@ -1,9 +1,9 @@
 [pi4]
-# circle needs this for FIQ (why? How does this include works?)
+# circle needs this for FIQ
 #armstub=armstub8-rpi4.bin
 
-# eeprom boot (recover4.bin) see it and start start4db.elf + fixup4db.dat
-# You get some debug info on UART1 GPIO 14/15.
+# eeprom boot (recover4.bin) sees this debug hints and start start4db.elf + fixup4db.dat
+# instead of start4.elf + fixup4.dat. You get some debug info on UART1 GPIO 14/15.
 # -> May conflict with your kernel8.img, which accesses the same UART1 interface
 #start_debug=1
 #uart_2ndstage=1

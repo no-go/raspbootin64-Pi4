@@ -9,13 +9,13 @@ This repository contains 2 components: Raspbootin64 and Raspbootcom.
 Based on: [raspbootin64](https://github.com/bztsrc/raspi3-tutorial/tree/master/14_raspbootin64)
 
 Raspbootin is the actual bootloader that you install on the SD Card for your
-Raspberry Pi. Copy the raspbootin/kernel8.img in place of the kernel8.img on
+Raspberry Pi. Copy the `sdcard/kernel8.img` in place of the `kernel8.img` on
 the SD Card and you are ready for use.
 
 **Compiling**
 
 - Get the right cross compiler toolchain (e.g. building on x86_64) from [here](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-a/downloads)
-- Take a look into the `raspbootin/Makefile` and modify `TOOLCHAIN` !
+- Take a look into the `raspbootin64/Makefile` and modify `TOOLCHAIN` !
 
 Switch to `raspbootin64/` and type `make`.
 
