@@ -145,11 +145,11 @@ int main(int argc, char *argv[]) {
     int breaks = 0;
     int exit_code = 0;
 
-    printf("Raspbootcom V1.0\n");
+    printf("Raspbootcom V1.1 (2021)\n");
 
     if (argc != 3) {
       printf("USAGE: %s <dev> <file>\n", argv[0]);
-      printf("Example: %s /dev/ttyUSB0 kernel/kernel.img\n", argv[0]);
+      printf("Example: %s /dev/ttyUSB0 somewhere/kernel8.img\n", argv[0]);
       exit(EXIT_FAILURE);
     }
 

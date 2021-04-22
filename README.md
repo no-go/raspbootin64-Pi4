@@ -4,6 +4,13 @@ Simple boot-over-serial bootloader for the Raspberry Pi4 for aarch64 kernels.
 
 This repository contains 2 components: Raspbootin64 and Raspbootcom.
 
+This code has a focus on:
+
+- aarch64
+- Pi4 and not Pi3
+- more important binary files and config.txt hints
+- Using GPIO 4 and 5 and UART3 instead of 14,15 to allow additional `start4db.elf` serial console
+
 ## Raspbootin64
 
 Based on: [raspbootin64](https://github.com/bztsrc/raspi3-tutorial/tree/master/14_raspbootin64)
