@@ -58,16 +58,17 @@ void uart_init()
     mbox[8] = MBOX_TAG_LAST;
     mbox_call(MBOX_CH_PROP);
 
-    /* map UART0 to GPIO pins */
+    // map UART3 to GPIO pins
     r=*GPFSEL0;
-    r&=~((7<<12)|(7<<15)); // 000 to gpio4, gpio5
+    r&=~((7<<12)|(7<<15)); // 111 to gpio4, gpio5 (mask/clear)
     r|=(3<<12)|(3<<15);    // 011 = alt4
     *GPFSEL0 = r;
-    *GPPUD = 0;            // enable pins 4 and 5
-    r=150; while(r--) { asm volatile("nop"); }
-    *GPPUDCLK0 = (1<<14)|(1<<15);
-    r=150; while(r--) { asm volatile("nop"); }
-    *GPPUDCLK0 = 0;        // flush GPIO setup
+
+    // remove pullup or pulldown
+    r = *GPPUPPDN0;
+    r &= ~((3<<8)|(3<<10));     // 11 to gpio4, gpio5 (mask/clear)
+    r |= (0<<8)|(0<<10);        // 00 = no pullup or down
+    *GPPUPPDN0 = r;
 
     *UART3_ICR = 0x7FF;    // clear interrupts
     *UART3_IBRD = 1;       // 115200 baud
