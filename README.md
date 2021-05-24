@@ -9,7 +9,7 @@ This code has a focus on:
 - aarch64
 - Pi4 and not Pi3
 - more important binary files and config.txt hints
-- Using GPIO 4 and 5 and UART3 instead of 14,15 to allow additional `start4db.elf` serial console
+- Using GPIO 14 and 15 (this branch)
 
 ## Raspbootin64
 

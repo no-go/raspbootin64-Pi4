@@ -28,7 +28,7 @@ OBJS = $(SRCS:.c=.o)
 CFLAGS = -Wall -O2 -ffreestanding -nostdinc -nostdlib -nostartfiles
 
 #TOOLCHAIN = ../gcc-arm-10.2-2020.11-x86_64-aarch64-none-elf/bin/aarch64-none-elf-
-TOOLCHAIN = /home/tux/Dokumente/hhu/Masterarbeit/dd-OS/gcc-arm-10.2-2020.11-x86_64-aarch64-none-elf/bin/aarch64-none-elf-
+TOOLCHAIN = /home/tux/bin/toolchain/gcc-arm-10.2-2020.11-x86_64-aarch64-none-elf/bin/aarch64-none-elf-
 
 all: clean kernel8.img
 

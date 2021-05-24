@@ -26,15 +26,15 @@
 #include "gpio.h"
 #include "mbox.h"
 
-/* PL011 UART registers */
-#define UART3_DR        ((volatile unsigned int*)(MMIO_BASE+0x00201600))
-#define UART3_FR        ((volatile unsigned int*)(MMIO_BASE+0x00201618))
-#define UART3_IBRD      ((volatile unsigned int*)(MMIO_BASE+0x00201624))
-#define UART3_FBRD      ((volatile unsigned int*)(MMIO_BASE+0x00201628))
-#define UART3_LCRH      ((volatile unsigned int*)(MMIO_BASE+0x0020162C))
-#define UART3_CR        ((volatile unsigned int*)(MMIO_BASE+0x00201630))
-#define UART3_IMSC      ((volatile unsigned int*)(MMIO_BASE+0x00201638))
-#define UART3_ICR       ((volatile unsigned int*)(MMIO_BASE+0x00201644))
+/* PL011 UART registers (NOT UART3 ! It is UART0, now) */
+#define UART3_DR        ((volatile unsigned int*)(MMIO_BASE+0x00201000))
+#define UART3_FR        ((volatile unsigned int*)(MMIO_BASE+0x00201018))
+#define UART3_IBRD      ((volatile unsigned int*)(MMIO_BASE+0x00201024))
+#define UART3_FBRD      ((volatile unsigned int*)(MMIO_BASE+0x00201028))
+#define UART3_LCRH      ((volatile unsigned int*)(MMIO_BASE+0x0020102C))
+#define UART3_CR        ((volatile unsigned int*)(MMIO_BASE+0x00201030))
+#define UART3_IMSC      ((volatile unsigned int*)(MMIO_BASE+0x00201038))
+#define UART3_ICR       ((volatile unsigned int*)(MMIO_BASE+0x00201044))
 
 /**
  * Set baud rate and characteristics (115200 8N1) and map to GPIO
@@ -44,7 +44,7 @@ void uart_init()
     register unsigned int r;
 
     /* initialize UART */
-    *UART3_CR = 0;         // turn off UART0
+    *UART3_CR = 0;         // turn off UART
 
     /* set up clock for consistent divisor values */
     mbox[0] = 9*4;
@@ -59,15 +59,15 @@ void uart_init()
     mbox_call(MBOX_CH_PROP);
 
     // map UART3 to GPIO pins
-    r=*GPFSEL0;
-    r&=~((7<<12)|(7<<15)); // 111 to gpio4, gpio5 (mask/clear)
-    r|=(3<<12)|(3<<15);    // 011 = alt4
-    *GPFSEL0 = r;
+    r=*GPFSEL1;
+    r&=~((7<<12)|(7<<15)); // 111 to gpio14, gpio15 (mask/clear)
+    r|=(4<<12)|(4<<15);    // 100 = alt0 (UART0)
+    *GPFSEL1 = r;
 
     // remove pullup or pulldown
     r = *GPPUPPDN0;
-    r &= ~((3<<8)|(3<<10));     // 11 to gpio4, gpio5 (mask/clear)
-    r |= (0<<8)|(0<<10);        // 00 = no pullup or down
+    r &= ~((3<<28)|(3<<30));     // 11 to gpio14, gpio15 (mask/clear)
+    r |= (0<<28)|(0<<30);        // 00 = no pullup or down
     *GPPUPPDN0 = r;
 
     *UART3_ICR = 0x7FF;    // clear interrupts
